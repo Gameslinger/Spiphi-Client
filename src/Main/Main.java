@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package p2p;
+package Main;
 
 import java.net.InetAddress;
 import java.util.concurrent.Callable;
@@ -15,15 +15,15 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Bennett.DenBleyker
  */
-public class P2P extends IP2P {
+public class Main extends ACommunication {
 
-    public static P2P p2p;
+    public static Main p2p;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        p2p = new P2P();
+        p2p = new Main();
         Option.options();
     }
 
@@ -37,7 +37,7 @@ public class P2P extends IP2P {
         }
     };
 
-    public P2P() {
+    public Main() {
         try {
             preStart();
             task.call();
