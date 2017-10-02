@@ -5,18 +5,21 @@
  */
 package URLProtocol;
 
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLStreamHandler;
+import java.net.URLStreamHandlerFactory;
 
 /**
  *
  * @author Bennett.DenBleyker
  */
-public class URLProtocolHandler extends URLStreamHandler {
+public class URLProtocolHandlerFactory implements URLStreamHandlerFactory {
 
     @Override
-    protected URLConnection openConnection(URL url) {
-        return new SpiphinURLConnection(url);
+    public URLStreamHandler createURLStreamHandler(String protocol) {
+        if ("spiphin".equals(protocol)) {
+            return new URLProtocolHandler();
+        }
+
+        return null;
     }
 }

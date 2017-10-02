@@ -20,46 +20,40 @@ import java.net.URLConnection;
  */
 public class SpiphinURLConnection extends URLConnection {
 
-    static int defaultPort = 80;
-    SpiphinInputStream cis;
+    static int defaultPort = 4198;
 
+    @Override
     public String getContentType() {
         return guessContentTypeFromName(url.getFile());
     }
 
-    SpiphinURLConnection(URL url, String crypType)
-            throws IOException {
+    SpiphinURLConnection(URL url) {
         super(url);
-        try {
-            String classname = "learningjava.protocolhandlers.crypt."
-                    + crypType + "SpiphinInputStream";
-            cis = (SpiphinInputStream) Class.forName(classname).newInstance();
-        } catch (Exception e) {
-            throw new IOException("Spiphin Class Not Found: " + e);
-        }
     }
 
+    @Override
     public void connect() throws IOException {
-        int port = (url.getPort() == -1)
-                ? defaultPort : url.getPort();
-        Socket s = new Socket(url.getHost(), port);
-
-        // Send the filename in plaintext 
-        OutputStream server = s.getOutputStream();
-        new PrintWriter(new OutputStreamWriter(server, "8859_1"),
-                true).println("GET " + url.getFile());
-
-        // Initialize the SpiphinInputStream 
-        cis.set(s.getInputStream(), server);
+        String path = url.getPath().replaceFirst("/", "");
+        switch (url.getHost()) {
+            case "id":
+                System.out.println("ID: " + path);
+                break;
+            case "user":
+                System.out.println("User: " + path);
+                break;
+            case "ip":
+                System.out.println("IP: " + path);
+                break;
+            case "me":
+                System.out.println("Me");
+                break;
+            default:
+                System.out.println("Main");
+        }
         connected = true;
     }
-
-    public InputStream getInputStream() throws IOException {
-        if (!connected) {
-            connect();
-        }
-        return (cis);
-    }
+    
     //spiphin://me accesses one's self
     //spiphin://id/874923 accesses a user with the id 874923
+    
 }
