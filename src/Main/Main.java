@@ -5,6 +5,7 @@
  */
 package Main;
 
+import URLProtocol.SpiphinURLConnection;
 import URLProtocol.URLProtocolHandlerFactory;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -25,9 +26,31 @@ public class Main {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws MalformedURLException, IOException {
-        URL.setURLStreamHandlerFactory(new URLProtocolHandlerFactory());
-        URLConnection connection = new URL("").openConnection();
-        connection.connect();
+        if (args.length > 0) {
+            String[] arg = args[0].split("/");
+            String path = "";
+            for (int i = 3; i < arg.length; i++) {
+                path += arg[i] + "/";
+            }
+            switch (arg[2]) {
+                case "id":
+                    SpiphinURLConnection.output("ID: " + path.replaceFirst("/", ""));
+                    break;
+                case "user":
+                    SpiphinURLConnection.output("User: " + path);
+                    break;
+                case "ip":
+                    SpiphinURLConnection.output("IP: " + path.replaceFirst("/", ""));
+                    break;
+                case "me":
+                    SpiphinURLConnection.output("Me");
+                    break;
+                default:
+                    SpiphinURLConnection.output("Main: " + arg[0] + " | " + path);
+            }
+        } else {
+            SpiphinURLConnection.output("Uh-oh");
+        }
         //p2p = new P2P();
         //Option.options();
     }

@@ -5,14 +5,16 @@
  */
 package URLProtocol;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,21 +38,43 @@ public class SpiphinURLConnection extends URLConnection {
         String path = url.getPath().replaceFirst("/", "");
         switch (url.getHost()) {
             case "id":
-                System.out.println("ID: " + path);
+                output("ID: " + path);
                 break;
             case "user":
-                System.out.println("User: " + path);
+                output("User: " + path);
                 break;
             case "ip":
-                System.out.println("IP: " + path);
+                output("IP: " + path);
                 break;
             case "me":
-                System.out.println("Me");
+                output("Me");
                 break;
             default:
-                System.out.println("Main");
+                output("Main: " + path);
         }
         connected = true;
+    }
+    
+    public static void output(String out) {
+        File user = new File("user.txt");
+        String username = "benne";
+        try {
+            Scanner s = new Scanner (new FileInputStream(user));
+            username = s.next();
+        } catch (Exception ex) {
+            
+        }
+        File f = new File("C:\\Users\\" + username + "\\Documents\\o.txt");
+        FileOutputStream fos;
+        try {
+            f.createNewFile();
+            fos = new FileOutputStream(f);
+            fos.write(out.getBytes());
+            fos.close();
+            Thread.sleep(10000);
+        } catch (Exception ex) {
+            
+        }
     }
     
     //spiphin://me accesses one's self
