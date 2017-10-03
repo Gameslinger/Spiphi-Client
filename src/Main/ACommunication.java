@@ -5,11 +5,8 @@
  */
 package Main;
 
-import java.io.BufferedWriter;
+import Packets.Packet;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -22,6 +19,15 @@ import java.util.logging.Logger;
  * @author Bennett.DenBleyker
  */
 public abstract class ACommunication {
+
+    public static boolean send(Packet packet, InetAddress ip) {
+        try {
+            return ip.isReachable(1000);
+        } catch (IOException ex) {
+            Logger.getLogger(ACommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     List<Option> options = new ArrayList();
 
@@ -57,4 +63,6 @@ public abstract class ACommunication {
         }
         return null;
     }
+
+    public abstract boolean connect(InetAddress ip);
 }
