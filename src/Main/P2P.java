@@ -5,7 +5,10 @@
  */
 package Main;
 
+import Packets.Packet;
+import Packets.PingPacket;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,6 +19,21 @@ import java.util.concurrent.TimeUnit;
  * @author Bennett.DenBleyker
  */
 public class P2P extends ACommunication {
+
+    public static void main(String[] args) {
+//        try {
+//            switch (args[0]) {
+//                case "me":
+//                    Main.p2p.connect(InetAddress.getLocalHost());
+//                case "ip":
+//                    Main.p2p.connect(InetAddress.getByName(args[1]));
+//            }
+//        } catch (UnknownHostException ex) {
+//            ex.printStackTrace();
+//        }
+        P2P p2p = new P2P();
+        System.out.println(p2p.connect(""));
+    }
 
     final ScheduledExecutorService execService = Executors.newSingleThreadScheduledExecutor();
 
@@ -28,12 +46,12 @@ public class P2P extends ACommunication {
     };
 
     public P2P() {
-        try {
-            preStart();
-            task.call();
-        } catch (Exception ex) {
-
-        }
+//        try {
+//            preStart();
+//            task.call();
+//        } catch (Exception ex) {
+//
+//        }
     }
 
     @Override
@@ -44,12 +62,12 @@ public class P2P extends ACommunication {
 
     @Override
     public void addFriend(InetAddress ip) {
-        
+
     }
 
     @Override
     public void addFriend(String username) {
-        
+
     }
 
     @Override
@@ -69,12 +87,18 @@ public class P2P extends ACommunication {
 
     @Override
     public void start() {
-        
+
     }
 
     @Override
     public void setup() {
-        
+
+    }
+
+    @Override
+    public boolean connect(String ip) {
+        Packet ping = new PingPacket();
+        return ACommunication.send(ping, ip);
     }
 
 }

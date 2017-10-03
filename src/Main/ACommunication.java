@@ -5,13 +5,15 @@
  */
 package Main;
 
-import java.io.BufferedWriter;
+import Packets.Packet;
+import Packets.PingPacket;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +24,22 @@ import java.util.logging.Logger;
  * @author Bennett.DenBleyker
  */
 public abstract class ACommunication {
+
+    public static boolean send(Packet packet, String ip) {
+        try {
+            Socket socket = new Socket("172.21.10.14",4198);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out.write(Packet.serialize(packet));
+            Packet inPacket = Packet.parse(input);
+            System.out.println("Recieved Packet: "+inPacket.type);
+            if (inPacket.type == 2)
+                return true;
+        } catch (IOException ex) {
+            Logger.getLogger(ACommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     List<Option> options = new ArrayList();
 
@@ -57,4 +75,6 @@ public abstract class ACommunication {
         }
         return null;
     }
+
+    public abstract boolean connect(String ip);
 }
