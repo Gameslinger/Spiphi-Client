@@ -6,9 +6,14 @@
 package Main;
 
 import Packets.Packet;
+import Packets.PingPacket;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,9 +25,16 @@ import java.util.logging.Logger;
  */
 public abstract class ACommunication {
 
-    public static boolean send(Packet packet, InetAddress ip) {
+    public static boolean send(Packet packet, String ip) {
         try {
-            return ip.isReachable(1000);
+            Socket socket = new Socket("172.21.10.14",4198);
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out.write(Packet.serialize(packet));
+            Packet inPacket = Packet.parse(input);
+            System.out.println("Recieved Packet: "+inPacket.type);
+            if (inPacket.type == 2)
+                return true;
         } catch (IOException ex) {
             Logger.getLogger(ACommunication.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,5 +76,5 @@ public abstract class ACommunication {
         return null;
     }
 
-    public abstract boolean connect(InetAddress ip);
+    public abstract boolean connect(String ip);
 }

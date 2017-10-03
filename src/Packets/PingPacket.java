@@ -7,12 +7,12 @@ package Packets;
 
 /**
  *
- * @author Bennett.DenBleyker
+ * @author Gabriel.Maxfield
  */
-public class PingPacket extends Packet {
-    
+public class PingPacket extends Packet{
+    public static char[] pingReq = {1};
     public PingPacket() {
-        super(1, new char[] {1});
+        super(1,pingReq);
     }
     
 }

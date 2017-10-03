@@ -21,16 +21,18 @@ import java.util.concurrent.TimeUnit;
 public class P2P extends ACommunication {
 
     public static void main(String[] args) {
-        try {
-            switch (args[0]) {
-                case "me":
-                    Main.p2p.connect(InetAddress.getLocalHost());
-                case "ip":
-                    Main.p2p.connect(InetAddress.getByName(args[1]));
-            }
-        } catch (UnknownHostException ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            switch (args[0]) {
+//                case "me":
+//                    Main.p2p.connect(InetAddress.getLocalHost());
+//                case "ip":
+//                    Main.p2p.connect(InetAddress.getByName(args[1]));
+//            }
+//        } catch (UnknownHostException ex) {
+//            ex.printStackTrace();
+//        }
+        P2P p2p = new P2P();
+        System.out.println(p2p.connect(""));
     }
 
     final ScheduledExecutorService execService = Executors.newSingleThreadScheduledExecutor();
@@ -44,12 +46,12 @@ public class P2P extends ACommunication {
     };
 
     public P2P() {
-        try {
-            preStart();
-            task.call();
-        } catch (Exception ex) {
-
-        }
+//        try {
+//            preStart();
+//            task.call();
+//        } catch (Exception ex) {
+//
+//        }
     }
 
     @Override
@@ -94,10 +96,9 @@ public class P2P extends ACommunication {
     }
 
     @Override
-    public boolean connect(InetAddress ip) {
+    public boolean connect(String ip) {
         Packet ping = new PingPacket();
-        ACommunication.send(ping, ip);
-        return true;
+        return ACommunication.send(ping, ip);
     }
 
 }

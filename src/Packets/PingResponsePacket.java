@@ -7,12 +7,16 @@ package Packets;
 
 /**
  *
- * @author Bennett.DenBleyker
+ * @author Gabriel.Maxfield
  */
-public class PingResponsePacket extends Packet {
+public class PingResponsePacket extends Packet{
+    //Type,Length,1 (constant)
+    public static char[] respData = {1};
     
-    public PingResponsePacket() {
-        super(2, new char[] {1});
+    public PingResponsePacket(char[] data) {
+        super(2, data);
     }
-    
+    public PingResponsePacket(){
+      super(2,respData);
+    }
 }

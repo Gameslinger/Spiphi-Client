@@ -7,12 +7,12 @@ package Packets;
 
 /**
  *
- * @author Bennett.DenBleyker
+ * @author Gabriel.Maxfield
  */
-public class EmptyPacket extends Packet {
+public class EmptyPacket extends Packet{
     
     public EmptyPacket() {
-        super(0, new char[0]);
+        super(0, null);
     }
     
 }
