@@ -6,11 +6,8 @@
 package main;
 
 import urlprotocol.SpiphinURLConnection;
-import urlprotocol.URLProtocolHandlerFactory;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 /**
  *
@@ -21,6 +18,8 @@ public class Main {
     public static P2P p2p;
 
     /**
+     * 
+     * @author Gabriel.Maxfield, Bennett.DenBleyker
      * @param args the command line arguments
      * @throws java.net.MalformedURLException
      * @throws java.io.IOException
@@ -50,7 +49,7 @@ public class Main {
             }
         } else {
             SpiphinURLConnection.output("Uh-oh");
-            P2P.main(args);
+            P2P.main();
         }
         //p2p = new P2P();
         //Option.options();

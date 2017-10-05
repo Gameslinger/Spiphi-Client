@@ -5,7 +5,6 @@
  */
 package main;
 
-import packets.ping.PingPacket;
 import java.net.InetAddress;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
@@ -16,21 +15,11 @@ import packets.iplookup.IpLookupPacket;
 
 /**
  *
- * @author Bennett.DenBleyker
+ * @author Gabriel.Maxfield, Bennett.DenBleyker
  */
 public class P2P extends ACommunication {
 
-    public static void main(String[] args) {
-//        try {
-//            switch (args[0]) {
-//                case "me":
-//                    Main.p2p.connect(InetAddress.getLocalHost());
-//                case "ip":
-//                    Main.p2p.connect(InetAddress.getByName(args[1]));
-//            }
-//        } catch (UnknownHostException ex) {
-//            ex.printStackTrace();
-//        }
+    public static void main() {
         P2P p2p = new P2P();
         System.out.println(p2p.connect(""));
     }
