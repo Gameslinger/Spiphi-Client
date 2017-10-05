@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import packets.Packet;
+import packets.iplookup.IpLookupPacket;
 
 /**
  *
@@ -96,7 +97,7 @@ public class P2P extends ACommunication {
 
     @Override
     public boolean connect(String ip) {
-        Packet ping = new PingPacket();
+        Packet ping = new IpLookupPacket(1234);
         return ACommunication.send(ping, ip);
     }
 

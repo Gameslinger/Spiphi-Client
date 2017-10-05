@@ -32,13 +32,12 @@ public abstract class ACommunication {
             out.write(Packet.serialize(packet));
             out.flush();
             Packet inPacket = Packet.parse(input);
-            System.out.println("Recieved Packet: "+inPacket.type);
-            if (inPacket.type == 2)
-                return true;
+            System.out.println("Recieved Packet: "+inPacket);
         } catch (IOException ex) {
-            Logger.getLogger(ACommunication.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            return false;
         }
-        return false;
+        return true;
     }
 
     List<Option> options = new ArrayList();
