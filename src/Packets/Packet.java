@@ -7,8 +7,7 @@ package Packets;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Arrays;
 
 /**
  *
@@ -22,6 +21,26 @@ public class Packet {
     public Packet(int type, char[] data) {
         this.type = type;
         this.data = data;
+    }
+    
+    @Override
+    public String toString() {
+        String out = "Packet{";
+        switch (type) {
+            case 0:
+                out += "Empty: "; 
+                break;
+            case 1:
+                out += "Ping: ";
+                break;
+            case 2:
+                out += "PingResponse: ";
+                break;
+            default:
+                out += "Other: ";
+        }
+        
+        return out + Arrays.toString(data) + "}";
     }
 
     public static Packet parse(int type, char[] data) {
