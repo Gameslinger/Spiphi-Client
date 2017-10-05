@@ -1,16 +1,19 @@
 /*
- * CLIENT
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package packets;
 
+import packets.iplookup.IpLookupPacket;
+import packets.iplookup.IpLookupRespPacket;
 import packets.ping.PingResponsePacket;
 import packets.ping.PingPacket;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
- * CLIENT
+ *
  * @author Gabriel.Maxfield
  */
 public class Packet {
@@ -23,36 +26,21 @@ public class Packet {
         this.data = data;
     }
     
-    @Override //CLIENT
+    @Override
     public String toString() {
-        String out = "Packet{";
-        switch (type) {
-            case 0:
-                out += "Empty: "; 
-                break;
-            case 1:
-                out += "Ping: ";
-                break;
-            case 2:
-                out += "PingResponse: ";
-                break;
-            default:
-                out += "Other: ";
-        }
-        
-        return out + Arrays.toString(data) + "}";
+        return "Packet Type: "+this.type+" Length: "+this.data.length;
     }
-
-    public static Packet parse(char[] data) {
-        switch ((data[0]<<8)|data[1]) {
-            case 1:
-                return new PingPacket();
-            case 2:
-                return new PingResponsePacket(data);
-        }
-        //Not Good
-        return new EmptyPacket();
-    }
+//
+//    public static Packet parse(char[] data) {
+//        switch ((data[0]<<8)|data[1]) {
+//            case 1:
+//                return new PingPacket();
+//            case 2:
+//                return new PingResponsePacket(data);
+//        }
+//        //Not Good
+//        return new EmptyPacket();
+//    }
 
     public static Packet parse(BufferedReader input) {
         int type = -1;
@@ -76,11 +64,15 @@ public class Packet {
                 return new PingPacket();
             case 2:
                 return new PingResponsePacket(data);
+            case 3:
+                return new IpLookupPacket(data);
+            case 4:
+                return new IpLookupRespPacket(data);
         }
         //Not Good
         return new EmptyPacket();
     }
-
+    
     public static char[] serialize(Packet packet) {
         //int-type,int length
         char out[] = new char[packet.data.length + 4];

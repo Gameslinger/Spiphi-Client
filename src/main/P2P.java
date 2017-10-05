@@ -5,14 +5,13 @@
  */
 package main;
 
-import packets.Packet;
 import packets.ping.PingPacket;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import packets.Packet;
 
 /**
  *
