@@ -50,6 +50,7 @@ public class Main {
             }
         } else {
             SpiphinURLConnection.output("Uh-oh");
+            P2P.main(args);
         }
         //p2p = new P2P();
         //Option.options();

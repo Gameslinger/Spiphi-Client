@@ -27,10 +27,11 @@ public abstract class ACommunication {
 
     public static boolean send(Packet packet, String ip) {
         try {
-            Socket socket = new Socket("172.21.10.14",4198);
+            Socket socket = new Socket("localhost",4198);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out.write(Packet.serialize(packet));
+            out.flush();
             Packet inPacket = Packet.parse(input);
             System.out.println("Recieved Packet: "+inPacket.type);
             if (inPacket.type == 2)
